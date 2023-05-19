@@ -1,87 +1,32 @@
-## Projet-BDD-Over_Eats
 
-## Sujet : Conception, administration et sécurisation d’une BDD
+# Conception de la base de données pour Over Eats
 
+## Introduction
 
-Restaurants :
-Nom de l’enseigne
-Notes
-Avis
-email
-contact(s) de référence
-Type de restaurant
-Numéro de téléphone
-Range de prix (€ - €€€)
-Adresse
-Paiements autorisés
-Une photo de couverture
-Menu 
-Promotions 
+Le présent rapport expose la conception de la base de données pour Over Eats, un concurrent fictif d'Uber Eats. L'objectif principal de cette base de données est de permettre la gestion des restaurants, des menus, des coursiers, des clients et des commandes au sein de la plateforme Over Eats.
 
-Menu : 
-Chaque item du menu comprend : 
-Nom du menu
-Prix
-Description
-Éléments constituant le menu que l’utilisateur peut sélectionner (sauce, accompagnement etc…). Le nom de l’élément et les compositions sont créés par le restaurateur. Soit des mono-sélections, soit des choix multiples (avec un nombre maximum de sélection), obligatoire ou non. 
-Des allergènes
+### Raisonnement et logique de conception
 
-Coursiers :
-Nom/prénom
-Type de véhicule
-Avis
-Notes
- Numéro de téléphone
-Zone géographiques
-Est actuellement actif ou non
-Pièces d’identités (type et zone de stockage sur le drive sécurisés de l’entreprise)
+Lors de la conception de la base de données, plusieurs aspects ont été pris en compte pour assurer une structure adéquate et répondre aux besoins fonctionnels du système.
 
+1. Tables principales :
+   Les principales entités identifiées dans le système sont les restaurants, les menus, les éléments de menu, les allergènes, les coursiers, les clients et les commandes. Ces entités ont été modélisées en tant que tables principales de la base de données.
 
-Clients (particuliers)
-Nom/prénom
-Adresse(s)
-Numéro de téléphone
-Email
-Moyen de paiements
-Favoris
-Commandes
+2. Relations entre les tables :
+   Des relations ont été établies entre les tables pour refléter les associations entre les entités. Par exemple, un menu est associé à un restaurant à l'aide d'une clé étrangère ID_Restaurant dans la table Menu. De même, un élément de menu est lié à un menu à l'aide d'une clé étrangère ID_Menu dans la table Elements_Menu.
 
-Commandes :
-Dates
-Statut
-Restaurant
-Coursier
-Client (et adresse)
-Détail de la commande
-Facture associée
-Prix
+3. Gestion des références :
+   Les clés étrangères ont été utilisées pour gérer les références entre les tables. Cela permet de maintenir l'intégrité référentielle et d'assurer la cohérence des données. Par exemple, la clé étrangère ID_Restaurant dans la table Menu fait référence à la clé primaire ID_Restaurant dans la table Restaurants.
 
-# Contraintes
-En plus des contraintes basiques de vérification de la qualité des données (Null, Non Null, date d’arrivée de la commande > date de création de la commande etc…). Vous avez ces contraintes spécifiques au client
+4. Attributs des tables :
+   Les attributs nécessaires ont été identifiés pour chaque table afin de stocker les informations pertinentes. Par exemple, la table Restaurants comprend des attributs tels que Nom_Enseigne, Notes, Email, etc., pour enregistrer les détails spécifiques à un restaurant.
 
-Le choix du coursier se fait après que le restaurant est accepté la commande
-Une commande ne peut pas être annulée si le coursier l’a prise en charge
-Sécurité
-Voici les niveaux d’accès Over Eats, voici les demandes :
+5. Contraintes et vérifications :
+   Des contraintes ont été ajoutées pour assurer la qualité des données et l'intégrité du système. Par exemple, des clés primaires ont été définies pour chaque table afin d'assurer l'unicité des enregistrements. De plus, des contraintes spécifiques ont été définies pour gérer les relations et les règles métier, telles que l'impossibilité d'annuler une commande une fois qu'elle a été prise en charge par un coursier.
 
-Niveau support opérationnel : SAV basique de Over eats, ils ont besoin d’un accès permettant le suivi des commandes (numéro de téléphones des partis, détails, etc) mais n’ont pas accès aux informations sensibles (informations de paiements). Fort turnover des employés donc pas de garantie de sécurité
-Niveau commercial : ont accès aux informations des restaurants (notamment CA) et peuvent les aider à paramétrer leurs comptes. N’ont pas accès aux informations des particuliers et des coursiers
-Niveau recrutement : ont accès aux données des coursiers mais n’ont pas accès aux restaurants.
-Niveau Admin : full accès. 
+6. Gestion de la sécurité :
+   Pour répondre aux exigences de sécurité, une table distincte Coursiers a été créée pour stocker les informations spécifiques aux coursiers, telles que les pièces d'identité stockées de manière sécurisée. De plus, des niveaux d'accès ont été définis pour différents utilisateurs, tels que le support opérationnel, les commerciaux, le recrutement et l'administration, pour contrôler leur accès aux informations sensibles.
 
+## Conclusion
 
-# Vues 
-
-Il vous ai demandés de créer les vues suivantes : 
-
-CA des restaurants par ville (Pour les commerciaux et les admins)
-Top 10 des livreurs faisant le plus de livraison par ville (Pour les recruteurs et admins)
-Clients commandant le plus à une enseigne données (Admin uniquement)
-
-Je rappelle que l’exécution de ces vues doit être illustrée avec des données.
-
-# Procédures
-
-Vous devez créer une procédure stockée pour archiver les comptes clients inactifs depuis plus de 2ans.
-
-Les commandes annulées doivent être archivées au bout de 3 ans.
+La conception de la base de données pour Over Eats a été réalisée en prenant en compte les besoins fonctionnels du système et en suivant une approche logique. Les tables principales ont été créées pour représenter les entités principales du système, tandis que les relations entre les tables et les contraintes ont été établies pour assurer l'intégrité référentielle et la cohérence des données. La gestion de la sécurité a également été prise en compte pour protéger les informations sensibles. Cette conception fournit une base solide pour le développement du système Over Eats et offre une structure adaptée à la gestion des restaurants, des menus, des coursiers, des clients et des commandes.
