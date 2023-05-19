@@ -1,6 +1,6 @@
 ## Projet-BDD-Over_Eats
 
-##Sujet : Conception, administration et sécurisation d’une BDD
+## Sujet : Conception, administration et sécurisation d’une BDD
 
 
 Restaurants :
@@ -56,7 +56,7 @@ Détail de la commande
 Facture associée
 Prix
 
-#Contraintes
+# Contraintes
 En plus des contraintes basiques de vérification de la qualité des données (Null, Non Null, date d’arrivée de la commande > date de création de la commande etc…). Vous avez ces contraintes spécifiques au client
 
 Le choix du coursier se fait après que le restaurant est accepté la commande
@@ -70,7 +70,7 @@ Niveau recrutement : ont accès aux données des coursiers mais n’ont pas acc�
 Niveau Admin : full accès. 
 
 
-#Vues 
+# Vues 
 
 Il vous ai demandés de créer les vues suivantes : 
 
@@ -80,7 +80,7 @@ Clients commandant le plus à une enseigne données (Admin uniquement)
 
 Je rappelle que l’exécution de ces vues doit être illustrée avec des données.
 
-#Procédures
+# Procédures
 
 Vous devez créer une procédure stockée pour archiver les comptes clients inactifs depuis plus de 2ans.
 
