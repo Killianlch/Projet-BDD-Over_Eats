@@ -1,16 +1,31 @@
 DELIMITER //
 
-CREATE PROCEDURE Archiver_Comptes_Inactifs()
+CREATE PROCEDURE ArchiverComptesInactifs()
 BEGIN
-  INSERT INTO Clients_Archive (ID_Client, Nom_Prenom, Adresse, Numero_Telephone, Email, Moyen_Paiements, Date_Derniere_Activite)
-  SELECT ID_Client, Nom_Prenom, Adresse, Numero_Telephone, Email, Moyen_Paiements, Date_Derniere_Activite
-  FROM Clients
-  WHERE DATEDIFF(NOW(), Date_Derniere_Activite) > 730;
-  
-  UPDATE Clients
-  SET Est_Supprime = 1
-  WHERE DATEDIFF(NOW(), Date_Derniere_Activite) > 730;
-  
+    -- Définir la date limite pour l'inactivité (2 ans)
+    SET @dateLimite = DATE_SUB(CURRENT_DATE(), INTERVAL 2 YEAR);
+
+    -- Archiver les comptes clients inactifs
+    UPDATE Clients SET Statut = 'Archivé' WHERE Statut = 'Actif' AND DateDerniereConnexion < @dateLimite;
+
+    -- Afficher le nombre de comptes archivés
+    SELECT ROW_COUNT() AS ComptesArchives;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE ArchiverCommandesAnnulees()
+BEGIN
+    -- Définir la date limite pour l'archivage des commandes annulées (3 ans)
+    SET @dateLimiteCommandes = DATE_SUB(CURRENT_DATE(), INTERVAL 3 YEAR);
+
+    -- Archiver les commandes annulées
+    UPDATE Commandes SET Statut = 'Archivée' WHERE Statut = 'Annulée' AND DateCommande < @dateLimiteCommandes;
+
+    -- Afficher le nombre de commandes archivées
+    SELECT ROW_COUNT() AS CommandesArchivées;
 END //
 
 DELIMITER ;
