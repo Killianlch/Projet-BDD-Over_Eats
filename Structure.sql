@@ -7,7 +7,6 @@ CREATE TABLE Restaurants (
   Nom_Enseigne VARCHAR(255),
   Notes FLOAT,
   Email VARCHAR(255),
-  Contact_Reference VARCHAR(255),
   Type_Restaurant VARCHAR(255),
   Numero_Telephone VARCHAR(20),
   Range_Prix VARCHAR(10),
