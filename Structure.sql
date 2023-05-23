@@ -14,7 +14,17 @@ CREATE TABLE Restaurants (
   Adresse VARCHAR(255),
   Paiements_Autorises VARCHAR(255),
   ID_Media INT,
-  ID_Avis INT
+  ID_Avis INT,
+  ID_Contact_Reference INT
+);
+
+CREATE TABLE Contact_Reference (
+  ID_Contact_Reference INT PRIMARY KEY,
+  Nom VARCHAR(255),
+  Prenom VARCHAR(255),
+  Poste VARCHAR(255),
+  Numero_Telephone VARCHAR(20),
+  FOREIGN KEY (ID_Contact_Reference) REFERENCES Restaurants (ID_Contact_Reference)
 );
 
 CREATE TABLE Menu (
