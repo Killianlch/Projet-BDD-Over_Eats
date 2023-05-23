@@ -1,99 +1,177 @@
-INSERT INTO Over_Eats.Restaurant (ID_Restaurant, Nom_Enseigne, Notes, Email, Type_Restaurant, Numero_Telephone, Range_Prix, Paiements_Autorises)
-VALUES (1, 'Pizza World', 4.5, 'contact@pizzaworld.com', 'Pizza', '1234567890', '$$', 'Carte de crédit, Espèces'),
-       (2, 'Sushi Delight', 4.2, 'info@sushidelight.com', 'Sushi', '9876543210', '$$$', 'Carte de crédit, Chèques restaurant'),
-       (3, 'Burger Shack', 3.8, 'hello@burgershack.com', 'Burger', '5555555555', '$$', 'Carte de crédit, Paiement en ligne'),
-       (4, 'Thai Palace', 4.6, 'contact@thaipalace.com', 'Thai', '1111111111', '$$', 'Carte de crédit, Espèces');
+use Over_Eats;
+INSERT INTO Restaurant (Nom_Enseigne, Notes, Email, Type_Restaurant, Numero_Telephone, Range_Prix, Paiements_Autorises)
+VALUES
+  ('Pizza Palace', 4.2, 'pizzapalace@example.com', 'Pizzeria', '1234567890', '€', 'Carte de crédit, Espèces'),
+  ('Burger House', 4.5, 'burgerhouse@example.com', 'Fast-food', '9876543210', '€€', 'Carte de crédit, Paiement mobile'),
+  ('Sushi Bar', 4.8, 'sushibar@example.com', 'Restaurant japonais', '4567890123', '€€€', 'Carte de crédit, Chèques, Espèces'),
+  ('Mexican Grill', 4.3, 'mexicangrill@example.com', 'Restaurant mexicain', '7890123456', '€€', 'Carte de crédit'),
+  ('Thai Spice', 4.6, 'thaispice@example.com', 'Restaurant thaïlandais', '2345678901', '€€', 'Carte de crédit, Paiement mobile, Espèces');
+
+INSERT INTO Menu (Nom_Menu, Prix, Description, Restaurant_ID_Restaurant)
+VALUES
+  ('Margherita', 9.99, 'Tomato sauce, mozzarella, basil', 1),
+  ('Pepperoni', 11.99, 'Tomato sauce, mozzarella, pepperoni', 1),
+  ('Hawaiian', 12.99, 'Tomato sauce, mozzarella, ham, pineapple', 1),
+  ('Cheeseburger', 8.99, 'Beef patty, cheese, lettuce, tomato, pickles', 2),
+  ('Chicken Caesar Salad', 10.99, 'Grilled chicken, romaine lettuce, Caesar dressing', 2),
+  ('Spicy Tuna Roll', 14.99, 'Tuna, spicy mayo, cucumber, avocado', 3),
+  ('Chicken Teriyaki', 16.99, 'Grilled chicken, teriyaki sauce, steamed rice', 3),
+  ('Quesadilla', 9.99, 'Flour tortilla, cheese, chicken, peppers, onions', 4),
+  ('Burrito Bowl', 11.99, 'Rice, black beans, grilled chicken, salsa, guacamole', 4),
+  ('Pad Thai', 12.99, 'Stir-fried noodles, shrimp, tofu, peanuts', 5),
+  ('Green Curry', 14.99, 'Green curry paste, chicken, vegetables, coconut milk', 5);
+
+INSERT INTO Element_Menu (Nom_Element, Composition, Menu_ID_Menu)
+VALUES
+  ('Tomato Sauce', 'Tomatoes, salt, spices', 1),
+  ('Mozzarella', 'Milk, rennet, salt', 1),
+  ('Pepperoni', 'Pork, spices, salt', 2),
+  ('Ham', 'Pork, water, salt, sugar', 3),
+  ('Pineapple', 'Pineapple chunks, syrup', 3),
+  ('Beef Patty', 'Ground beef, salt, pepper', 4),
+  ('Cheese', 'Cheddar, milk, salt', 4),
+  ('Lettuce', 'Lettuce leaves, water, vinegar', 5),
+  ('Grilled Chicken', 'Chicken breast, olive oil, spices', 5),
+  ('Tuna', 'Fresh tuna, mayonnaise, spices', 6),
+  ('Spicy Mayo', 'Mayonnaise, chili sauce, garlic', 6),
+  ('Flour Tortilla', 'Flour, water, salt', 7),
+  ('Rice', 'White rice, water', 7),
+  ('Shrimp', 'Shrimp, salt, lemon juice', 8),
+  ('Teriyaki Sauce', 'Soy sauce, sugar, ginger', 8),
+  ('Cheese', 'Cheddar, mozzarella, pepper jack', 9),
+  ('Chicken', 'Grilled chicken, spices, onions', 9),
+  ('Noodles', 'Rice noodles, water', 10),
+  ('Green Curry Paste', 'Green chilies, garlic, lemongrass', 10);
+
+INSERT INTO Allergenes (Nom_Allergenes, Element_Menu_ID_Element)
+VALUES
+  ('Gluten', 1),
+  ('Lactose', 2),
+  ('Gluten', 3),
+  ('Gluten', 4),
+  ('Lactose', 4),
+  ('Gluten', 5),
+  ('Lactose', 5),
+  ('Fish', 6),
+  ('Egg', 6),
+  ('Gluten', 7),
+  ('Soy', 7),
+  ('Crustaceans', 8),
+  ('Gluten', 8),
+  ('Lactose', 8),
+  ('Lactose', 9),
+  ('Gluten', 9),
+  ('Gluten', 10),
+  ('Lactose', 10);
+
+INSERT INTO Promotion (Nom_Promotion, Type_Promotion, Montant, Menu_ID_Menu)
+VALUES
+  ('Réduction 20%', 1, 20, 1),
+  ('Livraison gratuite', 2, NULL, 2),
+  ('Réduction 10%', 1, 10, 3),
+  ('Réduction 15%', 1, 15, 4),
+  ('Livraison gratuite', 2, NULL, 5),
+  ('Réduction 5%', 1, 5, 6),
+  ('Réduction 30%', 1, 30, 7),
+  ('Réduction 10%', 1, 10, 8),
+  ('Réduction 25%', 1, 25, 9),
+  ('Livraison gratuite', 2, NULL, 10);
+
+INSERT INTO Media (Photo_De_Couverture, Restaurant_ID_Restaurant)
+VALUES
+  ('image1.jpg', 1),
+  ('image2.jpg', 2),
+  ('image3.jpg', 3),
+  ('image4.jpg', 4),
+  ('image5.jpg', 5);
+
+INSERT INTO Adresse (Numero, Rue, Ville, Code_Postal)
+VALUES
+  (123, 'Rue des Champs', 'Paris', 75001),
+  (456, 'Avenue de la Gare', 'Lyon', 69002),
+  (789, 'Boulevard du Commerce', 'Marseille', 13001),
+  (1011, 'Rue de la Paix', 'Bordeaux', 33000),
+  (1213, 'Place de la Libération', 'Toulouse', 31000),
+  (1415, 'Rue des Lilas', 'Nantes', 44000),
+  (1617, 'Avenue du Port', 'Nice', 06000),
+  (1819, 'Boulevard Saint-Michel', 'Lille', 59000),
+  (2021, 'Rue Victor Hugo', 'Strasbourg', 67000),
+  (2223, 'Place du Capitole', 'Rennes', 35000);
+
+INSERT INTO Clients (Nom, Prenom, Numero_Telephone, Email, Moyen_Paiements, Date_Derniere_Activité, Est_Actif, Favoris, Adresse_ID_Adresse)
+VALUES
+  ('Dupont', 'Jean', '0123456789', 'jean.dupont@example.com', 'Carte de crédit', 10, 1, 'Pizza Hut', 1),
+  ('Martin', 'Sophie', '9876543210', 'sophie.martin@example.com', 'PayPal', 5, 1, 'McDonalds', 2),
+  ('Lefebvre', 'Pierre', '5555555555', 'pierre.lefebvre@example.com', 'Espèces', 3, 1, 'KFC', 3),
+  ('Dubois', 'Marie', '9999999999', 'marie.dubois@example.com', 'Carte de débit', 7, 1, 'Subway', 4),
+  ('Leblanc', 'Emma', '1111111111', 'emma.leblanc@example.com', 'Carte cadeau', 12, 1, 'Burger King', 5);
+
+INSERT INTO Avis (Message, Date, Clients_ID_Client)
+VALUES
+  ('Très bon service et plats délicieux !', '2023-05-15 14:30:00', 1),
+  ('Livraison rapide et repas chaud. Je recommande !', '2023-05-14 19:45:00', 2),
+  ('Le restaurant a oublié un élément de ma commande. Décevant.', '2023-05-16 10:00:00', 3),
+  ('Super expérience ! Les plats étaient excellents.', '2023-05-13 12:15:00', 4),
+  ('Service client très réactif. Ils ont résolu un problème avec ma commande rapidement.', '2023-05-16 16:20:00', 5);
+
+INSERT INTO Type_Vehicule (Type)
+VALUES
+  ('Voiture'),
+  ('Moto'),
+  ('Vélo'),
+  ('Scooter');
+
+INSERT INTO Coursiers (Nom, Prenom, Avis, Notes, Numero_Telephone, Zone_Geographique, Est_Actif, Type_Vehicule_ID_Type)
+VALUES
+  ('Dupont', 'Jean', 'Très bon service', 4.5, '0123456789', 'Paris', 1, 1),
+  ('Martin', 'Sophie', 'Livraison rapide', 4.2, '0987654321', 'Lyon', 1, 2),
+  ('Dubois', 'Pierre', 'Sympathique et efficace', 4.7, '9876543210', 'Marseille', 1, 3),
+  ('Leroy', 'Julie', 'Excellent coursier', 4.9, '0123456789', 'Toulouse', 1, 1),
+  ('Girard', 'Emma', 'Livraison impeccable', 4.8, '5555555555', 'Bordeaux', 1, 2);
 
 
-INSERT INTO Over_Eats.Menu (ID_Menu, Nom_Menu, Prix, Description, Restaurant_ID_Restaurant)
-VALUES (1, 'Pizza Margherita', 10.99, 'Tomato sauce, mozzarella cheese, basil', 1),
-       (2, 'California Roll', 8.50, 'Crab, avocado, cucumber, rice, nori', 2),
-       (3, 'Classic Burger', 9.99, 'Beef patty, lettuce, tomato, onion, pickles', 3),
-       (4, 'Pad Thai', 12.95, 'Rice noodles, shrimp, tofu, peanuts, bean sprouts', 4);
+INSERT INTO Facture (Date_Emission)
+VALUES
+  ('2023-05-01'),
+  ('2023-05-05'),
+  ('2023-05-10'),
+  ('2023-05-15'), 
+  ('2023-05-20');
 
+INSERT INTO Statut_Commande (Statut_Commande)
+VALUES
+  ('En attente'),
+  ('En cours de préparation'),
+  ('En cours de livraison'),
+  ('Livré'),
+  ('Annulé');
 
-INSERT INTO Over_Eats.Element_Menu (ID_Element, Nom_Element, Composition, Menu_ID_Menu)
-VALUES (1, 'Tomato Sauce', 'Tomatoes, herbs, spices', 1),
-       (2, 'Mozzarella Cheese', 'Milk, rennet, salt', 1),
-       (3, 'Crab', 'Crab meat, vinegar, salt', 2),
-       (4, 'Avocado', 'Fresh avocado', 2);
+INSERT INTO Commandes (Date_Commande, Prix, Restaurant_ID_Restaurant, Adresse_ID_Adresse, Facture_id_Facture, Clients_ID_Client, Coursiers_ID_Coursier, Statut_Commande_ID_Statut_Commande)
+VALUES
+  ('2023-05-01 12:30:00', 35.50, 1, 1, 1, 1, 1, 1),
+  ('2023-05-02 18:45:00', 22.99, 2, 2, 2, 2, 2, 2),
+  ('2023-05-03 20:15:00', 48.75, 3, 3, 3, 3, 3, 3),
+  ('2023-05-04 14:00:00', 18.50, 4, 4, 4, 4, 4, 4),
+  ('2023-05-05 19:30:00', 28.99, 5, 5, 5, 5, 5, 5);
 
+INSERT INTO Pieces_identite (Pieces_Identite, Coursiers_ID_Coursier) VALUES
+('Carte d identité', 1),
+('Permis de conduire', 2),
+('Passeport', 3),
+('Carte de résident', 4),
+('Carte d assurance maladie', 5);
 
-INSERT INTO Over_Eats.Allergenes (ID_Allergenes, Nom_Allergenes, Element_Menu_ID_Element)
-VALUES (1, 'Gluten', 1),
-       (2, 'Lactose', 2),
-       (3, 'Seafood', 3),
-       (4, 'Soy', 4);
+INSERT INTO Menu_Commande (Menu_ID_Menu, Commandes_ID_Commande) VALUES
+(1, 1),
+(2, 1),
+(3, 2),
+(4, 3),
+(5, 3),
+(6, 4),
+(7, 5);
 
-
-INSERT INTO Over_Eats.Promotion (ID_Promotion, Nom_Promotion, Type_Promotion, Montant, Menu_ID_Menu)
-VALUES (1, 'Summer Special', 1, 20, 1),
-       (2, 'Happy Hour', 2, 50, 3);
-
-INSERT INTO Over_Eats.Media (ID_Media, Photo_De_Couverture, Restaurant_ID_Restaurant)
-VALUES (1, 'pizza_world.jpg', 1),
-       (2, 'sushi_delight.jpg', 2),
-       (3, 'burger_shack.jpg', 3),
-       (4, 'thai_palace.jpg', 4);
-
-
-INSERT INTO Over_Eats.Adresse (ID_Adresse, Numero, Rue, Ville, Code_Postal)
-VALUES (1, 123, 'Rue de la Pizza', 'Paris', 75001),
-       (2, 456, 'Avenue des Sushis', 'Lyon', 69002),
-       (3, 789, 'Boulevard des Burgers', 'Marseille', 13008),
-       (4, 321, 'Rue du Pad Thai', 'Toulouse', 31000);
-
-
-INSERT INTO Over_Eats.Clients (ID_Client, Nom, Prenom, Numero_Telephone, Email, Moyen_Paiements, Date_Derniere_Activité, Est_Actif, Favoris, Adresse_ID_Adresse)
-VALUES (1, 'Dupont', 'Jean', '1234567890', 'jean.dupont@gmail.com', 'Carte de crédit', 1, 1, 'Pizza Margherita, California Roll', 1),
-       (2, 'Durand', 'Sophie', '9876543210', 'sophie.durand@gmail.com', 'Espèces', 1, 1, 'Classic Burger', 2),
-       (3, 'Martin', 'Pierre', '5555555555', 'pierre.martin@gmail.com', 'Carte de crédit', 1, 1, 'Pad Thai', 3),
-       (4, 'Lefevre', 'Emma', '1111111111', 'emma.lefevre@gmail.com', 'Carte de crédit', 1, 1, 'Pizza Margherita, Pad Thai', 4);
-
-
-INSERT INTO Over_Eats.Avis (ID_Avis, Message, Date, Clients_ID_Client)
-VALUES (1, 'Très bonne pizza, je recommande !', '2023-05-10 12:30:00', 1),
-       (2, 'Les sushis sont délicieux et frais.', '2023-05-11 18:45:00', 2),
-       (3, 'Burger savoureux et généreux en garniture.', '2023-05-12 20:15:00', 3),
-       (4, 'Le Pad Thai était délicieux, je le commande souvent.', '2023-05-13 14:00:00', 4);
-
-
-INSERT INTO Over_Eats.Type_Vehicule (ID_Type, Type)
-VALUES (1, 'Voiture'),
-       (2, 'Moto'),
-       (3, 'Vélo');
-
-
-INSERT INTO Over_Eats.Coursiers (ID_Coursier, Nom, Prenom, Avis, Notes, Numero_Telephone, Zone_Geographique, Est_Actif, Type_Vehicule_ID_Type)
-VALUES (1, 'Dubois', 'Alexandre', 'Très bon coursier, livraison rapide.', 4.8, '1234567890', 'Paris', 1, 1),
-       (2, 'Leroy', 'Julie', 'Livraison impeccable.', 4.5, '9876543210', 'Lyon', 1, 2),
-       (3, 'Moreau', 'Antoine', 'Coursier sympathique et ponctuel.', 4.6, '5555555555', 'Marseille', 1, 3),
-       (4, 'Fournier', 'Camille', 'Très bon service, toujours souriant.', 4.7, '1111111111', 'Toulouse', 1, 2);
-
-
-INSERT INTO Over_Eats.Restaurants (ID_Restaurant, Nom, Description, Note_Moyenne, Adresse_ID_Adresse)
-VALUES (1, 'Pizza Paradise', 'Dégustez les meilleures pizzas de la ville.', 4.5, 1),
-       (2, 'Sushi World', 'Savourez des sushis frais et authentiques.', 4.2, 2),
-       (3, 'Burger Factory', 'Le paradis des burgers gourmands.', 4.7, 3),
-       (4, 'Thai Delight', 'Voyagez en Thaïlande avec nos délicieux plats.', 4.3, 4);
-
-
-INSERT INTO Over_Eats.Commandes (ID_Commande, Date_Heure, Montant_Total, Est_Livrée, Clients_ID_Client, Restaurants_ID_Restaurant, Coursiers_ID_Coursier)
-VALUES (1, '2023-05-10 12:45:00', 28.50, 1, 1, 1, 1),
-       (2, '2023-05-11 19:15:00', 35.20, 1, 2, 2, 2),
-       (3, '2023-05-12 20:30:00', 18.90, 1, 3, 3, 3),
-       (4, '2023-05-13 14:30:00', 22.75, 1, 4, 4, 4);
-
-
-INSERT INTO Over_Eats.Produits (ID_Produit, Nom, Description, Prix, Restaurants_ID_Restaurant)
-VALUES (1, 'Pizza Margherita', 'Tomate, mozzarella, basilic', 12.50, 1),
-       (2, 'California Roll', 'Avocat, concombre, saumon', 8.90, 2),
-       (3, 'Classic Burger', 'Steak haché, cheddar, salade', 9.50, 3),
-       (4, 'Pad Thai', 'Nouilles de riz, crevettes, cacahuètes', 11.20, 4);
-
-
-INSERT INTO Over_Eats.Commande_Produits (Commandes_ID_Commande, Produits_ID_Produit, Quantite)
-VALUES (1, 1, 2),
-       (2, 2, 3),
-       (3, 3, 1),
-       (4, 4, 2);
+INSERT INTO Contact_Reference (Nom, Prenom, Poste, Numero) VALUES
+('Doe', 'John', 'Manager', '1234567890'),
+('Smith', 'Jane', 'Supervisor', '9876543210'),
+('Johnson', 'Michael', 'Assistant', '5555555555'),
+('Williams', 'Emily', 'Coordinator', '7777777777');
