@@ -10,8 +10,8 @@ CREATE TABLE Restaurants (
   Type_Restaurant VARCHAR(255),
   Numero_Telephone VARCHAR(20),
   Range_Prix VARCHAR(10),
-  Adresse VARCHAR(255),
   Paiements_Autorises VARCHAR(255),
+  ID_Adresse INT,
   ID_Media INT,
   ID_Avis INT,
   ID_Contact_Reference INT
