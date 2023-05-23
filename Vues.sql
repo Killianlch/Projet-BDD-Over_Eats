@@ -22,6 +22,6 @@ SELECT R.Nom_Enseigne, C.Nom, C.Prenom, COUNT(*) AS Nombre_Commandes
 FROM Over_Eats.Restaurant R
 JOIN Over_Eats.Commandes CM ON R.ID_Restaurant = CM.Restaurant_ID_Restaurant
 JOIN Over_Eats.Clients C ON CM.Clients_ID_Client = C.ID_Client
+WHERE R.Nom_Enseigne IN ('Pizza Palace', 'Burger House', 'Sushi Bar', 'Mexican Grill', 'Thai Spice')
 GROUP BY R.Nom_Enseigne, C.Nom, C.Prenom
-HAVING R.Nom_Enseigne = 'nom_enseigne' -- Remplacez 'nom_enseigne' par le nom de l'enseigne souhaitée
 ORDER BY Nombre_Commandes DESC;
