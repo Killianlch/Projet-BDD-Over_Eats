@@ -110,6 +110,13 @@ CREATE TABLE Type_Vehicule (
   Type VARCHAR(255)
 );
 
+CREATE TABLE Facture_Associée (
+  ID_Facture INT PRIMARY KEY,
+  Date_Emission VARCHAR(255),
+  Date_Limite_Paiement VARCHAR(255),
+  Date_Reglement VARCHAR(255)
+);
+
 CREATE TABLE Promotion (
   ID_Promotion INT PRIMARY KEY,
   ID_Menu INT,
