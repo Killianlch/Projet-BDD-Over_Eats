@@ -18,3 +18,4 @@ GRANT SELECT ON Over_Eats.top10_livreurs_par_ville TO 'recrutement'@'localhost';
 CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin';
 GRANT ALL PRIVILEGES ON Over_Eats.* TO 'admin'@'localhost';
 GRANT SELECT ON Over_Eats.topclients_enseigne TO 'admin'@'localhost';
+GRANT SELECT ON Over_Eats.top10_livreurs_par_ville TO 'admin'@'localhost';
