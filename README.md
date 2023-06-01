@@ -7,7 +7,7 @@ Le présent rapport expose la conception de la base de données pour Over Eats, 
 
 ## Comment installer le projet :
 
-Importez le fichier **structure.sql** en premier dans votre **phpmyadmin**, ensuite importer le fichier **data.sql** pour ajouter les données à la base de données. Ensuite importez les fichiers **vues.sql**, **Procedure.sql**, **Création_users.sql**.
+Importez le fichier **structure.sql** en premier dans votre **phpmyadmin**, ensuite importer le fichier **data.sql** pour ajouter les données à la base de données. Ensuite importez dans la base de données Over_Eats les fichiers **vues.sql**, **Procedure.sql**, **Création_users.sql** et **trigger**.
 
 ### Raisonnement et logique de conception :
 
