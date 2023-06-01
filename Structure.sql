@@ -252,11 +252,3 @@ CREATE TABLE IF NOT EXISTS Over_Eats.Contact_Reference (
   Numero VARCHAR(20) NOT NULL,
   PRIMARY KEY (ID_Contact_Reference)
 );
-
-
-
-
-
-
-
-
