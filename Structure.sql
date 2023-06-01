@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS Over_Eats.Restaurant (
   ID_Restaurant INT NOT NULL AUTO_INCREMENT,
   Nom_Enseigne VARCHAR(255) NOT NULL,
   Notes FLOAT NULL,
-  Email VARCHAR(255) NULL,
+  Email VARCHAR(255) NOT NULL,
   Type_Restaurant VARCHAR(255) NULL,
   Numero_Telephone VARCHAR(20) NULL,
   Range_Prix VARCHAR(10) NULL,
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS Over_Eats.Element_Menu (
 
 CREATE TABLE IF NOT EXISTS Over_Eats.Allergenes (
   ID_Allergenes INT NOT NULL AUTO_INCREMENT COMMENT '\n',
-  Nom_Allergenes VARCHAR(255) NULL,
+  Nom_Allergenes VARCHAR(255) NOT NULL,
   Element_Menu_ID_Element INT NOT NULL,
   PRIMARY KEY (ID_Allergenes),
   INDEX fk_Allergenes_Element_Menu1_idx (Element_Menu_ID_Element ASC) ,
@@ -59,8 +59,8 @@ CREATE TABLE IF NOT EXISTS Over_Eats.Allergenes (
 CREATE TABLE IF NOT EXISTS Over_Eats.Promotion (
   ID_Promotion INT NOT NULL AUTO_INCREMENT,
   Nom_Promotion VARCHAR(255) NULL,
-  Type_Promotion TINYINT NULL,
-  Montant INT NULL,
+  Type_Promotion TINYINT NOT NULL,
+  Montant INT NOT NULL,
   Menu_ID_Menu INT NOT NULL,
   PRIMARY KEY (ID_Promotion),
   INDEX fk_Promotion_Menu1_idx (Menu_ID_Menu ASC) ,
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS Over_Eats.Promotion (
 
 CREATE TABLE IF NOT EXISTS Over_Eats.Media (
   ID_Media INT NOT NULL AUTO_INCREMENT,
-  Photo_De_Couverture VARCHAR(255) NULL,
+  Photo_De_Couverture VARCHAR(255) NOT NULL,
   Restaurant_ID_Restaurant INT NOT NULL,
   PRIMARY KEY (ID_Media),
   INDEX fk_Media_Restaurant1_idx (Restaurant_ID_Restaurant ASC) ,
@@ -86,22 +86,22 @@ CREATE TABLE IF NOT EXISTS Over_Eats.Media (
 
 CREATE TABLE IF NOT EXISTS Over_Eats.Adresse (
   ID_Adresse INT NOT NULL AUTO_INCREMENT,
-  Numero INT NULL,
-  Rue VARCHAR(255) NULL,
-  Ville VARCHAR(255) NULL,
-  Code_Postal INT NULL,
+  Numero INT NOT NULL,
+  Rue VARCHAR(255) NOT NULL,
+  Ville VARCHAR(255) NOT NULL,
+  Code_Postal INT NOT NULL,
   PRIMARY KEY (ID_Adresse)
 );
 
 CREATE TABLE IF NOT EXISTS Over_Eats.Clients (
   ID_Client INT NOT NULL AUTO_INCREMENT,
-  Nom VARCHAR(255) NULL,
-  Prenom VARCHAR(255) NULL,
-  Numero_Telephone VARCHAR(20) NULL,
-  Email VARCHAR(255) NULL,
+  Nom VARCHAR(255) NOT NULL,
+  Prenom VARCHAR(255) NOT NULL,
+  Numero_Telephone VARCHAR(20) NOT NULL,
+  Email VARCHAR(255) NOT NULL,
   Moyen_Paiements VARCHAR(255) NULL,
-  Date_Derniere_Activité TINYINT NULL,
-  Est_Actif TINYINT NULL,
+  Date_Derniere_Activité TINYINT NOT NULL,
+  Est_Actif TINYINT NOT NULL,
   Favoris VARCHAR(255) NULL,
   Adresse_ID_Adresse INT NOT NULL,
   PRIMARY KEY (ID_Client),
@@ -113,35 +113,21 @@ CREATE TABLE IF NOT EXISTS Over_Eats.Clients (
     ON UPDATE NO ACTION
 );
 
-CREATE TABLE IF NOT EXISTS Over_Eats.Avis (
-  ID_Avis INT NOT NULL AUTO_INCREMENT,
-  Message VARCHAR(255) NULL,
-  Date DATETIME NULL,
-  Clients_ID_Client INT NOT NULL,
-  PRIMARY KEY (ID_Avis),
-  INDEX fk_Avis_Clients1_idx (Clients_ID_Client ASC) ,
-  CONSTRAINT fk_Avis_Clients1
-    FOREIGN KEY (Clients_ID_Client)
-    REFERENCES Over_Eats.Clients (ID_Client)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
-);
-
 CREATE TABLE IF NOT EXISTS Over_Eats.Type_Vehicule (
   ID_Type INT NOT NULL AUTO_INCREMENT,
-  Type VARCHAR(255) NULL,
+  Type VARCHAR(255) NOT NULL,
   PRIMARY KEY (ID_Type)
 );
 
 CREATE TABLE IF NOT EXISTS Over_Eats.Coursiers (
   ID_Coursier INT NOT NULL AUTO_INCREMENT,
-  Nom VARCHAR(255) NULL,
-  Prenom VARCHAR(255) NULL,
+  Nom VARCHAR(255) NOT NULL,
+  Prenom VARCHAR(255) NOT NULL,
   Avis VARCHAR(255) NULL,
   Notes FLOAT NULL,
-  Numero_Telephone VARCHAR(20) NULL,
-  Zone_Geographique VARCHAR(255) NULL,
-  Est_Actif TINYINT NULL,
+  Numero_Telephone VARCHAR(20) NOT NULL,
+  Zone_Geographique VARCHAR(255) NOT NULL,
+  Est_Actif TINYINT NOT NULL,
   Type_Vehicule_ID_Type INT NOT NULL,
   PRIMARY KEY (ID_Coursier),
   INDEX fk_Coursiers_Type_Vehicule1_idx (Type_Vehicule_ID_Type ASC) ,
@@ -152,10 +138,25 @@ CREATE TABLE IF NOT EXISTS Over_Eats.Coursiers (
     ON UPDATE NO ACTION
 );
 
-CREATE TABLE IF NOT EXISTS Over_Eats.Facture (
-  ID_Facture INT NOT NULL AUTO_INCREMENT,
-  Date_Emission VARCHAR(45) NULL,
-  PRIMARY KEY (ID_Facture)
+CREATE TABLE IF NOT EXISTS Over_Eats.Avis_Coursier (
+  ID_Avis_Coursier INT NOT NULL AUTO_INCREMENT,
+  Message VARCHAR(255) NOT NULL,
+  Date DATETIME NOT NULL,
+  Clients_ID_Client INT NOT NULL,
+  Coursiers_ID_Coursier INT NOT NULL,
+  PRIMARY KEY (ID_Avis_Coursier),
+  INDEX fk_Avis_Clients1_idx (Clients_ID_Client ASC),
+  INDEX fk_Avis_Coursier_Coursiers1_idx (Coursiers_ID_Coursier ASC),
+  CONSTRAINT fk_Avis_Clients1
+    FOREIGN KEY (Clients_ID_Client)
+    REFERENCES Over_Eats.Clients (ID_Client)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_Avis_Coursier_Coursiers1
+    FOREIGN KEY (Coursiers_ID_Coursier)
+    REFERENCES Over_Eats.Coursiers (ID_Coursier)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
 );
 
 CREATE TABLE IF NOT EXISTS Over_Eats.Statut_Commande (
@@ -166,21 +167,19 @@ CREATE TABLE IF NOT EXISTS Over_Eats.Statut_Commande (
 
 CREATE TABLE IF NOT EXISTS Over_Eats.Commandes (
   ID_Commande INT NOT NULL AUTO_INCREMENT,
-  Date_Commande DATETIME NULL,
-  Prix DECIMAL(10,2) NULL,
+  Date_Commande DATETIME NOT NULL,
+  Prix DECIMAL(10,2) NOT NULL,
   Restaurant_ID_Restaurant INT NOT NULL,
   Adresse_ID_Adresse INT NOT NULL,
-  Facture_id_Facture INT NOT NULL,
   Clients_ID_Client INT NOT NULL,
   Coursiers_ID_Coursier INT NOT NULL,
   Statut_Commande_ID_Statut_Commande INT NOT NULL,
   PRIMARY KEY (ID_Commande),
-  INDEX fk_Commandes_Restaurant1_idx (Restaurant_ID_Restaurant ASC) ,
-  INDEX fk_Commandes_adresse1_idx (Adresse_ID_Adresse ASC) ,
-  INDEX fk_Commandes_Facture1_idx (Facture_id_Facture ASC) ,
-  INDEX fk_Commandes_Clients1_idx (Clients_ID_Client ASC) ,
-  INDEX fk_Commandes_Coursiers1_idx (Coursiers_ID_Coursier ASC) ,
-  INDEX fk_Commandes_statut_commande1_idx (Statut_Commande_ID_Statut_Commande ASC) ,
+  INDEX fk_Commandes_Restaurant1_idx (Restaurant_ID_Restaurant ASC),
+  INDEX fk_Commandes_adresse1_idx (Adresse_ID_Adresse ASC),
+  INDEX fk_Commandes_Clients1_idx (Clients_ID_Client ASC),
+  INDEX fk_Commandes_Coursiers1_idx (Coursiers_ID_Coursier ASC),
+  INDEX fk_Commandes_statut_commande1_idx (Statut_Commande_ID_Statut_Commande ASC),
   CONSTRAINT fk_Commandes_Restaurant1
     FOREIGN KEY (Restaurant_ID_Restaurant)
     REFERENCES Over_Eats.Restaurant (ID_Restaurant)
@@ -189,11 +188,6 @@ CREATE TABLE IF NOT EXISTS Over_Eats.Commandes (
   CONSTRAINT fk_Commandes_adresse1
     FOREIGN KEY (Adresse_ID_Adresse)
     REFERENCES Over_Eats.Adresse (ID_Adresse)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT fk_Commandes_Facture1
-    FOREIGN KEY (Facture_id_Facture)
-    REFERENCES Over_Eats.Facture (ID_Facture)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT fk_Commandes_Clients1
@@ -209,6 +203,19 @@ CREATE TABLE IF NOT EXISTS Over_Eats.Commandes (
   CONSTRAINT fk_Commandes_statut_commande1
     FOREIGN KEY (Statut_Commande_ID_Statut_Commande)
     REFERENCES Over_Eats.Statut_Commande (ID_Statut_Commande)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+);
+
+CREATE TABLE IF NOT EXISTS Over_Eats.Facture (
+  ID_Facture INT NOT NULL AUTO_INCREMENT,
+  Date_Emission VARCHAR(45) NOT NULL,
+  Commandes_ID_Commande INT NOT NULL,
+  PRIMARY KEY (ID_Facture),
+  INDEX fk_Facture_Commandes1_idx (Commandes_ID_Commande ASC),
+  CONSTRAINT fk_Facture_Commandes1
+    FOREIGN KEY (Commandes_ID_Commande)
+    REFERENCES Over_Eats.Commandes (ID_Commande)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 );
@@ -250,5 +257,33 @@ CREATE TABLE IF NOT EXISTS Over_Eats.Contact_Reference (
   Prenom VARCHAR(255) NOT NULL,
   Poste VARCHAR(255) NOT NULL,
   Numero VARCHAR(20) NOT NULL,
-  PRIMARY KEY (ID_Contact_Reference)
+  Restaurant_ID_Restaurant INT NOT NULL,
+  PRIMARY KEY (ID_Contact_Reference),
+  INDEX fk_Contact_Reference_Restaurant1_idx (Restaurant_ID_Restaurant ASC),
+  CONSTRAINT fk_Contact_Reference_Restaurant1
+    FOREIGN KEY (Restaurant_ID_Restaurant)
+    REFERENCES Over_Eats.Restaurant (ID_Restaurant)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+);
+
+CREATE TABLE IF NOT EXISTS Over_Eats.Avis_Restaurant (
+  ID_Avis_Restaurant INT NOT NULL AUTO_INCREMENT,
+  Message VARCHAR(255) NOT NULL,
+  Date DATETIME NOT NULL,
+  Clients_ID_Client INT NOT NULL,
+  Restaurant_ID_Restaurant INT NOT NULL,
+  PRIMARY KEY (ID_Avis_Restaurant),
+  INDEX fk_Avis_Clients1_idx (Clients_ID_Client ASC),
+  INDEX fk_Avis_Restaurant_Restaurant1_idx (Restaurant_ID_Restaurant ASC),
+  CONSTRAINT fk_Avis_Clients10
+    FOREIGN KEY (Clients_ID_Client)
+    REFERENCES Over_Eats.Clients (ID_Client)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_Avis_Restaurant_Restaurant1
+    FOREIGN KEY (Restaurant_ID_Restaurant)
+    REFERENCES Over_Eats.Restaurant (ID_Restaurant)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
 );
