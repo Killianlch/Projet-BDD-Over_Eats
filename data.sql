@@ -67,15 +67,15 @@ VALUES
 INSERT INTO Promotion (Nom_Promotion, Type_Promotion, Montant, Menu_ID_Menu)
 VALUES
   ('Réduction 20%', 1, 20, 1),
-  ('Livraison gratuite', 2, NULL, 2),
+  ('Livraison gratuite', 2, 10, 2),
   ('Réduction 10%', 1, 10, 3),
   ('Réduction 15%', 1, 15, 4),
-  ('Livraison gratuite', 2, NULL, 5),
+  ('Livraison gratuite', 2, 10, 5),
   ('Réduction 5%', 1, 5, 6),
   ('Réduction 30%', 1, 30, 7),
   ('Réduction 10%', 1, 10, 8),
   ('Réduction 25%', 1, 25, 9),
-  ('Livraison gratuite', 2, NULL, 10);
+  ('Livraison gratuite', 2, 10, 10);
 
 INSERT INTO Media (Photo_De_Couverture, Restaurant_ID_Restaurant)
 VALUES
@@ -106,14 +106,6 @@ VALUES
   ('Dubois', 'Marie', '9999999999', 'marie.dubois@example.com', 'Carte de débit', 7, 1, 'Subway', 4),
   ('Leblanc', 'Emma', '1111111111', 'emma.leblanc@example.com', 'Carte cadeau', 12, 1, 'Burger King', 5);
 
-INSERT INTO Avis (Message, Date, Clients_ID_Client)
-VALUES
-  ('Très bon service et plats délicieux !', '2023-05-15 14:30:00', 1),
-  ('Livraison rapide et repas chaud. Je recommande !', '2023-05-14 19:45:00', 2),
-  ('Le restaurant a oublié un élément de ma commande. Décevant.', '2023-05-16 10:00:00', 3),
-  ('Super expérience ! Les plats étaient excellents.', '2023-05-13 12:15:00', 4),
-  ('Service client très réactif. Ils ont résolu un problème avec ma commande rapidement.', '2023-05-16 16:20:00', 5);
-
 INSERT INTO Type_Vehicule (Type)
 VALUES
   ('Voiture'),
@@ -129,14 +121,12 @@ VALUES
   ('Leroy', 'Julie', 'Excellent coursier', 4.9, '0123456789', 'Toulouse', 1, 1),
   ('Girard', 'Emma', 'Livraison impeccable', 4.8, '5555555555', 'Bordeaux', 1, 2);
 
-
-INSERT INTO Facture (Date_Emission)
+INSERT INTO Avis_Coursier (Message, Date, Clients_ID_Client, Coursiers_ID_Coursier)
 VALUES
-  ('2023-05-01'),
-  ('2023-05-05'),
-  ('2023-05-10'),
-  ('2023-05-15'), 
-  ('2023-05-20');
+  ('Très bon service de livraison !', '2023-05-10 15:30:00', 1, 1),
+  ('Livreur très sympathique et ponctuel.', '2023-05-11 12:45:00', 2, 2),
+  ('Le coursier a livré la commande rapidement.', '2023-05-12 18:20:00', 3, 1),
+  ('Service de livraison efficace et professionnel.', '2023-05-13 09:15:00', 4, 3);
 
 INSERT INTO Statut_Commande (Statut_Commande)
 VALUES
@@ -147,13 +137,22 @@ VALUES
   ('Livrée'),
   ('Annulée');
 
-INSERT INTO Commandes (Date_Commande, Prix, Restaurant_ID_Restaurant, Adresse_ID_Adresse, Facture_id_Facture, Clients_ID_Client, Coursiers_ID_Coursier, Statut_Commande_ID_Statut_Commande)
+INSERT INTO Commandes (Date_Commande, Prix, Restaurant_ID_Restaurant, Adresse_ID_Adresse, Clients_ID_Client, Coursiers_ID_Coursier, Statut_Commande_ID_Statut_Commande)
 VALUES
-  ('2023-05-01 12:30:00', 35.50, 1, 1, 1, 1, 1, 1),
-  ('2023-05-02 18:45:00', 22.99, 2, 2, 2, 2, 2, 2),
-  ('2023-05-03 20:15:00', 48.75, 3, 3, 3, 3, 3, 3),
-  ('2023-05-04 14:00:00', 18.50, 4, 4, 4, 4, 4, 4),
-  ('2023-05-05 19:30:00', 28.99, 5, 5, 5, 5, 5, 5);
+  ('2023-05-01 12:30:00', 35.50, 1, 1, 1, 1, 1),
+  ('2023-05-02 18:45:00', 22.99, 2, 2, 2, 2, 2),
+  ('2023-05-03 20:15:00', 48.75, 3, 3, 3, 3, 3),
+  ('2023-05-04 14:00:00', 18.50, 4, 4, 4, 4, 4),
+  ('2023-05-05 19:30:00', 28.99, 5, 5, 5, 5, 5);
+
+
+INSERT INTO Facture (Date_Emission, Commandes_ID_Commande)
+VALUES
+  ('2023-05-10', 1),
+  ('2023-05-12', 2),
+  ('2023-05-13', 3),
+  ('2023-05-11', 4), 
+  ('2023-05-15', 5); 
 
 INSERT INTO Pieces_identite (Pieces_Identite, Coursiers_ID_Coursier) VALUES
 ('Carte d identité', 1),
@@ -171,8 +170,19 @@ INSERT INTO Menu_Commande (Menu_ID_Menu, Commandes_ID_Commande) VALUES
 (6, 4),
 (7, 5);
 
-INSERT INTO Contact_Reference (Nom, Prenom, Poste, Numero) VALUES
-('Doe', 'John', 'Manager', '1234567890'),
-('Smith', 'Jane', 'Supervisor', '9876543210'),
-('Johnson', 'Michael', 'Assistant', '5555555555'),
-('Williams', 'Emily', 'Coordinator', '7777777777');
+INSERT INTO Over_Eats.Contact_Reference (Nom, Prenom, Poste, Numero, Restaurant_ID_Restaurant)
+VALUES
+  ('Doe', 'John', 'Manager', '1234567890', 1),
+  ('Smith', 'Jane', 'Chef', '9876543210', 2),
+  ('Johnson', 'Michael', 'Server', '4567890123', 1),
+  ('Williams', 'Emily', 'Bartender', '7890123456', 3),
+  ('Brown', 'David', 'Host', '3210987654', 2);
+
+
+INSERT INTO Avis_Restaurant (Message, Date, Clients_ID_Client, Restaurant_ID_Restaurant)
+VALUES
+  ('Très bon restaurant, la nourriture était délicieuse !', '2023-05-10 12:30:00', 1, 1),
+  ('Service médiocre, je ne recommande pas.', '2023-05-12 18:45:00', 2, 1),
+  ('Expérience incroyable, les plats étaient fantastiques.', '2023-05-13 20:15:00', 3, 2),
+  ('Le restaurant était propre et bien entretenu.', '2023-05-11 14:00:00', 4, 2);
+
