@@ -1,11 +1,15 @@
 
-# Conception de la base de données pour Over Eats
+# Conception de la base de données pour Over Eats.
 
-## Introduction
+## Introduction :
 
 Le présent rapport expose la conception de la base de données pour Over Eats, un concurrent fictif d'Uber Eats. L'objectif principal de cette base de données est de permettre la gestion des restaurants, des menus, des coursiers, des clients et des commandes au sein de la plateforme Over Eats.
 
-### Raisonnement et logique de conception
+## Comment installer le projet :
+
+Importez le fichier **structure.sql** en premier dans votre **phpmyadmin**, ensuite importer le fichier **data.sql** pour ajouter les données à la base de données. Ensuite importez les fichiers **vues.sql**, **Procedure.sql**, **Création_users.sql**.
+
+### Raisonnement et logique de conception :
 
 Lors de la conception de la base de données, plusieurs aspects ont été pris en compte pour assurer une structure adéquate et répondre aux besoins fonctionnels du système.
 
