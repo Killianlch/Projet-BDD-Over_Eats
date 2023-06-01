@@ -141,10 +141,11 @@ VALUES
 INSERT INTO Statut_Commande (Statut_Commande)
 VALUES
   ('En attente'),
+  ('Acceptée'),
   ('En cours de préparation'),
   ('En cours de livraison'),
-  ('Livré'),
-  ('Annulé');
+  ('Livrée'),
+  ('Annulée');
 
 INSERT INTO Commandes (Date_Commande, Prix, Restaurant_ID_Restaurant, Adresse_ID_Adresse, Facture_id_Facture, Clients_ID_Client, Coursiers_ID_Coursier, Statut_Commande_ID_Statut_Commande)
 VALUES

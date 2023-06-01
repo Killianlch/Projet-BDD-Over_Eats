@@ -1,3 +1,8 @@
+-- Suppression des utilisateurs existants
+DROP USER IF EXISTS 'support_oper'@'localhost';
+DROP USER IF EXISTS 'commercial'@'localhost';
+DROP USER IF EXISTS 'recrutement'@'localhost';
+DROP USER IF EXISTS 'admin'@'localhost';
 
 -- Création de l'utilisateur pour le niveau SupportOpérationnel
 CREATE USER 'support_oper'@'localhost' IDENTIFIED BY 'support';
